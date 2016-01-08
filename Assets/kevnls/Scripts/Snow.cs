@@ -10,7 +10,8 @@ public class Snow : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
         //keep the attached transform faced one direction
-        this.transform.Rotate(0, 25, 0);
+        transform.Rotate(0, 25, 0);
 	}
 }
