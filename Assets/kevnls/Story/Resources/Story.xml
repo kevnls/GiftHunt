@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<story title="Epic Tale">
+  <paragraphs>
+    <paragraph>This is where the main story will be told.</paragraph>
+    <paragraph>This order will be retained in the array after deserialization.</paragraph>
+    <paragraph>So I should be able to just iterate over it sequentially.</paragraph>
+  </paragraphs>
+  <phrases>
+    <phrase>This is a phrase to be picked at random 1.</phrase>
+    <phrase>This is a phrase to be picked at random 2.</phrase>
+    <phrase>This is a phrase to be picked at random 3.</phrase>
+    <phrase>This is a phrase to be picked at random 4.</phrase>
+  </phrases>
+</story>
+
+
+
+
+
+
+
+
+
