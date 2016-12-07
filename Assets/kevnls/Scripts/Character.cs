@@ -1,12 +1,10 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
 
 namespace kevnls
 {
     public class Character : MonoBehaviour
     {
-
         public float messageFadeTime;
         public GameObject textObject;
 
