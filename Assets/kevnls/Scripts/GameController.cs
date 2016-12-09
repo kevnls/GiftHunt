@@ -11,7 +11,8 @@ namespace kevnls
         private int terrainWidth; 
         private int terrainLength; 
         private int terrainPosX; 
-        private int terrainPosZ; 
+        private int terrainPosZ;
+        private int giftTally = 0;
 
         void Start()
         {
@@ -28,20 +29,23 @@ namespace kevnls
 
         }
 
+        public void FoundGift()
+        {
+            //tally the gifts found
+            giftTally++;
+        }
+
         void PlaceGifts()
         {
             for (int x = 0; x < numberOfGroupsOfFiveGifts + 1; x++)
             {
-                //scramble the placement of the gifts
+                //randomize the placement of the gifts
                 for (int i = 0; i < gifts.Length; i++)
                 {
-                    // generate random x position
+
                     int posx = Random.Range(terrainPosX, terrainPosX + terrainWidth);
-                    // generate random z position
                     int posz = Random.Range(terrainPosZ, terrainPosZ + terrainLength);
-                    // get the terrain height at the random position
                     float posy = Terrain.activeTerrain.SampleHeight(new Vector3(posx, 0, posz));
-                    // create new gameObject on random position
                     Instantiate(gifts[i], new Vector3(posx, posy, posz), Quaternion.identity);
                 }
             }
