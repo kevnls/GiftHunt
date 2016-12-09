@@ -2,7 +2,7 @@
 
 namespace kevnls
 {
-    public class Box : MonoBehaviour
+    public class Gift : MonoBehaviour
     {
         public GameObject character;
 
