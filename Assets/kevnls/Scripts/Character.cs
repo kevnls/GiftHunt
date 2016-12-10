@@ -7,7 +7,7 @@ namespace kevnls
     {
         public float messageFadeTime;
         public float messageHoldTime;
-        public GameObject textObject;
+        public GameObject phraseTextObject;
 
         private Text phraseText;
         private bool showingMessage = false;
@@ -15,7 +15,7 @@ namespace kevnls
 
         void Start()
         {
-            phraseText = textObject.GetComponentInChildren<Text>();
+            phraseText = phraseTextObject.GetComponentInChildren<Text>();
             phraseText.CrossFadeAlpha(0.0f, 0.0f, false);
         }
 

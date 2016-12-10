@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 namespace kevnls
 {
@@ -7,12 +8,14 @@ namespace kevnls
         public GameObject[] gifts;
         public Terrain terrain;
         public int numberOfGroupsOfFiveGifts;
+        public GameObject scoreTextObject;
 
+        private Text scoreText;
         private int terrainWidth; 
         private int terrainLength; 
         private int terrainPosX; 
         private int terrainPosZ;
-        private int giftTally = 0;
+        private int giftTotal;
 
         void Start()
         {
@@ -20,6 +23,10 @@ namespace kevnls
             terrainLength = (int)terrain.terrainData.size.z;
             terrainPosX = (int)terrain.transform.position.x;
             terrainPosZ = (int)terrain.transform.position.z;
+
+            scoreText = scoreTextObject.GetComponentInChildren<Text>();
+            giftTotal = numberOfGroupsOfFiveGifts * 5;
+            scoreText.text = giftTotal.ToString();
 
             PlaceGifts();
         }
@@ -32,7 +39,8 @@ namespace kevnls
         public void FoundGift()
         {
             //tally the gifts found
-            giftTally++;
+            giftTotal--;
+            scoreText.text = giftTotal.ToString();
         }
 
         void PlaceGifts()
