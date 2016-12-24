@@ -38,7 +38,6 @@ namespace kevnls
 
         public void FoundGift()
         {
-            //tally the gifts found
             giftTotal--;
             scoreText.text = giftTotal.ToString();
         }
@@ -50,7 +49,6 @@ namespace kevnls
                 //randomize the placement of the gifts
                 for (int i = 0; i < gifts.Length; i++)
                 {
-
                     int posx = Random.Range(terrainPosX, terrainPosX + terrainWidth);
                     int posz = Random.Range(terrainPosZ, terrainPosZ + terrainLength);
                     float posy = Terrain.activeTerrain.SampleHeight(new Vector3(posx, 0, posz));
