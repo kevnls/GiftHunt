@@ -7,16 +7,16 @@ namespace kevnls
     {
         public float messageFadeTime;
         public float messageHoldTime;
-        public GameObject phraseTextObject;
+        public GameObject textObject;
 
-        private Text phraseText;
+        private Text textArea;
         private bool showingMessage = false;
         private float messageTimer = 0.0f;
 
         void Start()
         {
-            phraseText = phraseTextObject.GetComponentInChildren<Text>();
-            phraseText.CrossFadeAlpha(0.0f, 0.0f, false);
+            textArea = textObject.GetComponentInChildren<Text>();
+            textArea.CrossFadeAlpha(0.0f, 0.0f, false);
         }
 
         void Update()
@@ -30,19 +30,40 @@ namespace kevnls
             }
         }
 
-        public void ShowMessage()
+        public void ShowGiftMessage()
         {
             showingMessage = true;
             messageTimer = 0.0f;
             string strMessage = Story.GetPhrase();
-            phraseText.text = strMessage;
-            phraseText.CrossFadeAlpha(1.0f, messageFadeTime, false);
+            textArea.text = strMessage;
+            textArea.CrossFadeAlpha(1.0f, messageFadeTime, false);
             messageTimer = Time.fixedTime + messageHoldTime;
         }
 
+        //public void ShowStoryBeginning()
+        //{
+        //    showingMessage = true;
+        //    messageTimer = 0.0f;
+        //    string strMessage = Story.GetNextParagraph();
+        //    textArea.text = strMessage;
+        //    textArea.CrossFadeAlpha(1.0f, messageFadeTime, false);
+        //    messageTimer = Time.fixedTime + messageHoldTime;
+        //}
+
+        //there's a bug here. The function should wait for the ending gift message before diplaying this.
+        //public void ShowStoryEnding()
+        //{
+        //    showingMessage = true;
+        //    messageTimer = 0.0f;
+        //    string strMessage = Story.GetPhrase();
+        //    textArea.text = strMessage;
+        //    textArea.CrossFadeAlpha(1.0f, messageFadeTime, false);
+        //    messageTimer = Time.fixedTime + messageHoldTime;
+        //}
+
         private void HideMessage()
         {
-            phraseText.CrossFadeAlpha(0.0f, messageFadeTime, false);
+            textArea.CrossFadeAlpha(0.0f, messageFadeTime, false);
             showingMessage = false;
         }
     }

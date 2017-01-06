@@ -10,7 +10,7 @@ namespace kevnls
 
         void OnTriggerEnter(Collider other)
         {
-            character.SendMessage("ShowMessage");
+            character.SendMessage("ShowGiftMessage");
             gameController.SendMessage("FoundGift");
             AudioSource.PlayClipAtPoint(unwrapSound, gameObject.transform.position);
             GameObject.Destroy(gameObject);
