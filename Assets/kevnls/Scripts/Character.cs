@@ -40,26 +40,26 @@ namespace kevnls
             messageTimer = Time.fixedTime + messageHoldTime;
         }
 
-        //public void ShowStoryBeginning()
-        //{
-        //    showingMessage = true;
-        //    messageTimer = 0.0f;
-        //    string strMessage = Story.GetNextParagraph();
-        //    textArea.text = strMessage;
-        //    textArea.CrossFadeAlpha(1.0f, messageFadeTime, false);
-        //    messageTimer = Time.fixedTime + messageHoldTime;
-        //}
+        public void ShowStoryBeginning()
+        {
+            //showingMessage = true;
+            //messageTimer = 0.0f;
+            //string strMessage = Story.GetNextParagraph();
+            //textArea.text = strMessage;
+            //textArea.CrossFadeAlpha(1.0f, messageFadeTime, false);
+            //messageTimer = Time.fixedTime + messageHoldTime;
+        }
 
-        //there's a bug here. The function should wait for the ending gift message before diplaying this.
-        //public void ShowStoryEnding()
-        //{
-        //    showingMessage = true;
-        //    messageTimer = 0.0f;
-        //    string strMessage = Story.GetPhrase();
-        //    textArea.text = strMessage;
-        //    textArea.CrossFadeAlpha(1.0f, messageFadeTime, false);
-        //    messageTimer = Time.fixedTime + messageHoldTime;
-        //}
+        //there's a bug here. The function should wait for the ending gift message before displaying this.
+        public void ShowStoryEnding()
+        {
+            //showingMessage = true;
+            //messageTimer = 0.0f;
+            //string strMessage = Story.GetPhrase();
+            //textArea.text = strMessage;
+            //textArea.CrossFadeAlpha(1.0f, messageFadeTime, false);
+            //messageTimer = Time.fixedTime + messageHoldTime;
+        }
 
         private void HideMessage()
         {

@@ -35,7 +35,7 @@ namespace kevnls
         //gets paragraphs sequentially
         public static string GetNextParagraph()
         {
-            string returnString = "";
+            string returnString = string.Empty;
 
             foreach (Paragraph paragraph in storyContainer.paragraphs)
             {
@@ -46,8 +46,8 @@ namespace kevnls
                 }
                 else
                 {
-                    //if we've reached the end of the paragraphs just keep returning the last one
-                    returnString = storyContainer.paragraphs[storyContainer.paragraphs.Length].paragraph;
+                    //if we've reached the end of the paragraphs return an empty string
+                    returnString = string.Empty;
                 }
             }
 
