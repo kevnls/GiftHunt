@@ -70,3 +70,7 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+.vs/GiftHunt/v15/Server/sqlite3/storage.ide
+.vs/GiftHunt/v15/Server/sqlite3/db.lock
+.vs/GiftHunt/v15/Server/sqlite3/storage.ide-shm
+.vs/GiftHunt/v15/Server/sqlite3/storage.ide-wal
