@@ -7,7 +7,7 @@ namespace kevnls
         void Update()
         {
             //keep the attached transform faced one direction
-            transform.Rotate(0, 25, 0);
+            transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, 0, 0);
         }
     }
 }
