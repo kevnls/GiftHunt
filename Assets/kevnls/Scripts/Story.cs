@@ -12,6 +12,7 @@ namespace kevnls
         
         private static StoryContainer storyContainer;
         private static int paragraphCounter = 0;
+        private static int phraseCounter = 0;
 
         void Start()
         {
@@ -19,36 +20,45 @@ namespace kevnls
             xmlDoc.LoadXml(storyXML.text);
             XmlNodeReader reader = new XmlNodeReader(xmlDoc);
             storyContainer = StoryContainer.Load(reader);
+
+            //start at a random point in the phrase sequence
+            phraseCounter = Random.Range(0, storyContainer.phrases.Length);
         }
 
-        //gets a random phrase
         public static string GetPhrase()
         {
-            string returnString = "";
+            string returnString = string.Empty;
 
-            int intRandom = Random.Range(0, storyContainer.phrases.Length);
-            returnString = storyContainer.phrases[intRandom].phrase;
+            //get phrases sequentially
+            returnString = storyContainer.phrases[phraseCounter].phrase;
+            phraseCounter++;
+
+            if (phraseCounter >= storyContainer.phrases.Length)
+            {
+                phraseCounter = 0;
+            }
+
+            //get phrases randomly
+            //int intRandom = Random.Range(0, storyContainer.phrases.Length);
+            //returnString = storyContainer.phrases[intRandom].phrase;
 
             return returnString;
         }
 
-        //gets paragraphs sequentially
         public static string GetNextParagraph()
         {
             string returnString = string.Empty;
 
-            foreach (Paragraph paragraph in storyContainer.paragraphs)
+            //gets paragraphs sequentially
+            if (paragraphCounter < storyContainer.paragraphs.Length)
             {
-                if (paragraphCounter <= storyContainer.paragraphs.Length)
-                {
-                    returnString = storyContainer.paragraphs[paragraphCounter].paragraph;
-                    paragraphCounter++;
-                }
-                else
-                {
-                    //if we've reached the end of the paragraphs return an empty string
-                    returnString = string.Empty;
-                }
+                returnString = storyContainer.paragraphs[paragraphCounter].paragraph;
+                paragraphCounter++;
+            }
+            else
+            {
+                //if we've reached the end of the paragraphs the story is over 
+                returnString = string.Empty;
             }
 
             return returnString;
