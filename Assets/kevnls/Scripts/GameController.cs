@@ -17,7 +17,8 @@ namespace kevnls
         private Text scoreText;
         private int terrainWidth; 
         private int terrainLength; 
-        private int terrainPosX; 
+        private int terrainPosX;
+        private int terrainPosY;
         private int terrainPosZ;
         private int giftTotal;
 
@@ -26,6 +27,7 @@ namespace kevnls
             terrainWidth = (int)terrain.terrainData.size.x;
             terrainLength = (int)terrain.terrainData.size.z;
             terrainPosX = (int)terrain.transform.position.x;
+            terrainPosY = (int)terrain.transform.position.y;
             terrainPosZ = (int)terrain.transform.position.z;
 
             scoreText = scoreTextObject.GetComponentInChildren<Text>();
@@ -61,7 +63,7 @@ namespace kevnls
                 {
                     int posx = Random.Range(terrainPosX + giftPlacementSizeBuffer, terrainPosX + terrainWidth - giftPlacementSizeBuffer);
                     int posz = Random.Range(terrainPosZ + giftPlacementSizeBuffer, terrainPosZ + terrainLength - giftPlacementSizeBuffer);
-                    float posy = Terrain.activeTerrain.SampleHeight(new Vector3(posx, 0, posz));
+                    float posy = Terrain.activeTerrain.SampleHeight(new Vector3(posx, 0, posz)) + terrainPosY;
                     Instantiate(gifts[i], new Vector3(posx, posy, posz), Quaternion.identity);
                 }
             }

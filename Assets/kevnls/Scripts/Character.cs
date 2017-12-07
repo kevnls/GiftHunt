@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace kevnls
@@ -40,25 +41,30 @@ namespace kevnls
             messageTimer = Time.fixedTime + messageHoldTime;
         }
 
-        public void ShowStoryBeginning()
+        public IEnumerator ShowStoryBeginning()
         {
-            //showingMessage = true;
-            //messageTimer = 0.0f;
-            //string strMessage = Story.GetNextParagraph();
-            //textArea.text = strMessage;
-            //textArea.CrossFadeAlpha(1.0f, messageFadeTime, false);
-            //messageTimer = Time.fixedTime + messageHoldTime;
+            //fade in from black to let snow start
+            //disable controller for a period
+            //show message
+            yield return new WaitForSeconds(5);
+            showingMessage = true;
+            messageTimer = 0.0f;
+            string strMessage = Story.GetNextParagraph();
+            textArea.text = strMessage;
+            textArea.CrossFadeAlpha(1.0f, messageFadeTime, false);
+            messageTimer = Time.fixedTime + messageHoldTime;
         }
 
-        //there's a bug here. The function should wait for the ending gift message before displaying this.
-        public void ShowStoryEnding()
+        public IEnumerator ShowStoryEnding()
         {
-            //showingMessage = true;
-            //messageTimer = 0.0f;
-            //string strMessage = Story.GetPhrase();
-            //textArea.text = strMessage;
-            //textArea.CrossFadeAlpha(1.0f, messageFadeTime, false);
-            //messageTimer = Time.fixedTime + messageHoldTime;
+            //fade out to black
+            yield return new WaitForSeconds(messageFadeTime + 2);
+            showingMessage = true;
+            messageTimer = 0.0f;
+            string strMessage = Story.GetPhrase();
+            textArea.text = strMessage;
+            textArea.CrossFadeAlpha(1.0f, messageFadeTime, false);
+            messageTimer = Time.fixedTime + messageHoldTime;
         }
 
         private void HideMessage()

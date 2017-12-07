@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <story title="Epic Tale">
   <paragraphs>
-    <paragraph>This is where the main story will be told.</paragraph>
-    <paragraph>This order will be retained in the array after deserialization.</paragraph>
-    <paragraph>So I should be able to just iterate over it sequentially.</paragraph>
+    <paragraph>I have left some Christmas gifts for you to find.</paragraph>
+    <paragraph>You have found all of your Christmas gifts! I wish you a merry Christmas, and to you a good night.</paragraph>
   </paragraphs>
   <phrases>
     <phrase>
