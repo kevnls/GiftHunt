@@ -61,7 +61,7 @@ namespace kevnls
             yield return new WaitForSeconds(messageFadeTime + 2);
             showingMessage = true;
             messageTimer = 0.0f;
-            string strMessage = Story.GetPhrase();
+            string strMessage = Story.GetNextParagraph();
             textArea.text = strMessage;
             textArea.CrossFadeAlpha(1.0f, messageFadeTime, false);
             messageTimer = Time.fixedTime + messageHoldTime;
