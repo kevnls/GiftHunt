@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace kevnls
@@ -10,6 +11,8 @@ namespace kevnls
         public int numberOfGroupsOfFiveGifts;
         public GameObject character;
         public GameObject scoreTextObject;
+        public const float messageHoldTime = 7;
+        public const float messageFadeTime = 5;
         
         //used to keep the gifts away from the boundary mountains
         public int giftPlacementSizeBuffer = 75;
@@ -38,13 +41,11 @@ namespace kevnls
             StartStory();
         }
 
-        void Update()
-        {
-
-        }
-
         public void FoundGift()
         {
+            string strMessage = Story.GetPhrase();
+            character.SendMessage("ShowMessage", strMessage);
+
             giftTotal--;
             scoreText.text = giftTotal.ToString();
 
@@ -71,12 +72,21 @@ namespace kevnls
 
         void StartStory()
         {
-            character.SendMessage("ShowStoryBeginning");
+            Wait(5);
+            string strMessage = Story.GetNextParagraph();
+            character.SendMessage("ShowMessage", strMessage);
         }
 
         void EndStory()
         {
-            character.SendMessage("ShowStoryEnding");
+            Wait(messageFadeTime + 2);
+            string strMessage = Story.GetNextParagraph();
+            character.SendMessage("ShowMessage", strMessage);
+        }
+
+        private IEnumerator Wait(float waitTime)
+        {
+            yield return new WaitForSeconds(waitTime);
         }
     }
 }

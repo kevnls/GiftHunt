@@ -6,10 +6,10 @@ namespace kevnls
 {
     public class Character : MonoBehaviour
     {
-        public float messageFadeTime;
-        public float messageHoldTime;
         public GameObject textObject;
 
+        private float messageHoldTime = GameController.messageHoldTime;
+        private float messageFadeTime = GameController.messageFadeTime;
         private Text textArea;
         private bool showingMessage = false;
         private float messageTimer = 0.0f;
@@ -31,37 +31,11 @@ namespace kevnls
             }
         }
 
-        public void ShowGiftMessage()
+        public void ShowMessage(string messageText)
         {
             showingMessage = true;
             messageTimer = 0.0f;
-            string strMessage = Story.GetPhrase();
-            textArea.text = strMessage;
-            textArea.CrossFadeAlpha(1.0f, messageFadeTime, false);
-            messageTimer = Time.fixedTime + messageHoldTime;
-        }
-
-        public IEnumerator ShowStoryBeginning()
-        {
-            //fade in from black to let snow start
-            //disable controller for a period
-            //show message
-            yield return new WaitForSeconds(5);
-            showingMessage = true;
-            messageTimer = 0.0f;
-            string strMessage = Story.GetNextParagraph();
-            textArea.text = strMessage;
-            textArea.CrossFadeAlpha(1.0f, messageFadeTime, false);
-            messageTimer = Time.fixedTime + messageHoldTime;
-        }
-
-        public IEnumerator ShowStoryEnding()
-        {
-            //fade out to black
-            yield return new WaitForSeconds(messageFadeTime + 2);
-            showingMessage = true;
-            messageTimer = 0.0f;
-            string strMessage = Story.GetNextParagraph();
+            string strMessage = messageText;
             textArea.text = strMessage;
             textArea.CrossFadeAlpha(1.0f, messageFadeTime, false);
             messageTimer = Time.fixedTime + messageHoldTime;
