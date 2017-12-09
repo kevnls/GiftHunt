@@ -6,6 +6,8 @@ namespace kevnls
 {
     public class GameController : MonoBehaviour
     {
+        //public Image sceneFadeImg;
+        public float sceneFadeSpeed = 1.5f;
         public GameObject[] gifts;
         public Terrain terrain;
         public int numberOfGroupsOfFiveGifts;
@@ -27,6 +29,10 @@ namespace kevnls
 
         void Start()
         {
+
+            //sceneFadeImg.rectTransform.localScale = new Vector2(Screen.width, Screen.height);
+            //sceneFadeImg.pixelInset = new Rect(0f, 0f, Screen.width, Screen.height);
+
             terrainWidth = (int)terrain.terrainData.size.x;
             terrainLength = (int)terrain.terrainData.size.z;
             terrainPosX = (int)terrain.transform.position.x;
@@ -40,6 +46,19 @@ namespace kevnls
             PlaceGifts();
             StartStory();
         }
+
+        //void FadeToClear()
+        //{
+        //    // Lerp the colour of the image between itself and transparent.
+        //    sceneFadeImg.color = Color.Lerp(sceneFadeImg.color, Color.clear, sceneFadeSpeed * Time.deltaTime);
+        //}
+
+
+        //void FadeToBlack()
+        //{
+        //    // Lerp the colour of the image between itself and black.
+        //    sceneFadeImg.color = Color.Lerp(sceneFadeImg.color, Color.black, sceneFadeSpeed * Time.deltaTime);
+        //}
 
         public void FoundGift()
         {
@@ -72,6 +91,7 @@ namespace kevnls
 
         void StartStory()
         {
+            //fade in from black, disable controller
             Wait(5);
             string strMessage = Story.GetNextParagraph();
             character.SendMessage("ShowMessage", strMessage);
@@ -79,9 +99,16 @@ namespace kevnls
 
         void EndStory()
         {
-            Wait(messageFadeTime + 2);
-            string strMessage = Story.GetNextParagraph();
-            character.SendMessage("ShowMessage", strMessage);
+            string strMessage;
+            do
+            {
+                //incremental ending
+                strMessage = Story.GetNextParagraph();
+                Wait(messageFadeTime + 2);
+                character.SendMessage("ShowMessage", strMessage);
+            }
+            while (strMessage != string.Empty);
+            //the real end
         }
 
         private IEnumerator Wait(float waitTime)
