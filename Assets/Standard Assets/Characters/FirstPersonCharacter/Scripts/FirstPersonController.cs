@@ -28,6 +28,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
         [SerializeField] private AudioClip m_JumpSound;           // the sound played when character leaves the ground.
         [SerializeField] private AudioClip m_LandSound;           // the sound played when character touches back on ground.
 
+        private bool inputEnabled = true;
+
         private Camera m_Camera;
         private bool m_Jump;
         private float m_YRotation;
@@ -41,6 +43,19 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private float m_NextStep;
         private bool m_Jumping;
         private AudioSource m_AudioSource;
+
+        public bool InputEnabled
+        {
+            get
+            {
+                return inputEnabled;
+            }
+
+            set
+            {
+                inputEnabled = value;
+            }
+        }
 
         // Use this for initialization
         private void Start()
@@ -61,7 +76,10 @@ namespace UnityStandardAssets.Characters.FirstPerson
         // Update is called once per frame
         private void Update()
         {
-            RotateView();
+            if (inputEnabled)
+            { 
+                RotateView();
+            }
             // the jump state needs to read here to make sure it is not missed
             if (!m_Jump)
             {
@@ -86,17 +104,27 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private void PlayLandingSound()
         {
-            m_AudioSource.clip = m_LandSound;
-            //m_AudioSource.Play();
-            m_AudioSource.PlayOneShot(m_AudioSource.clip);
-            m_NextStep = m_StepCycle + .5f;
+            if (inputEnabled)
+            {
+                m_AudioSource.clip = m_LandSound;
+                //m_AudioSource.Play();
+                m_AudioSource.PlayOneShot(m_AudioSource.clip);
+                m_NextStep = m_StepCycle + .5f;
+            }
         }
 
 
         private void FixedUpdate()
         {
             float speed;
-            GetInput(out speed);
+            if (inputEnabled)
+            {
+                GetInput(out speed);
+            }
+            else
+            {
+                speed = 0f;
+            }
             // always move along the camera forward as it is the direction that it being aimed at
             Vector3 desiredMove = transform.forward*m_Input.y + transform.right*m_Input.x;
 
@@ -110,7 +138,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_MoveDir.z = desiredMove.z*speed;
 
 
-            if (m_CharacterController.isGrounded)
+            if (m_CharacterController.isGrounded && InputEnabled)
             {
                 m_MoveDir.y = -m_StickToGroundForce;
 
@@ -238,7 +266,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private void RotateView()
         {
-            m_MouseLook.LookRotation (transform, m_Camera.transform);
+            m_MouseLook.LookRotation(transform, m_Camera.transform);
         }
 
 

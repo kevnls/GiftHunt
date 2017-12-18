@@ -1,12 +1,14 @@
 ﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityStandardAssets.Characters.FirstPerson;
 
 namespace kevnls
 {
     public class GameController : MonoBehaviour
     {
-        //public Image sceneFadeImg;
+        public Image sceneFadeImg;
+        public float sceneOpeningWait = 5f;
         public float sceneFadeSpeed = 1.5f;
         public GameObject[] gifts;
         public Terrain terrain;
@@ -19,6 +21,7 @@ namespace kevnls
         //used to keep the gifts away from the boundary mountains
         public int giftPlacementSizeBuffer = 75;
 
+        private FirstPersonController firstPersonController;
         private Text scoreText;
         private int terrainWidth; 
         private int terrainLength; 
@@ -30,8 +33,9 @@ namespace kevnls
         void Start()
         {
 
-            //sceneFadeImg.rectTransform.localScale = new Vector2(Screen.width, Screen.height);
-            //sceneFadeImg.pixelInset = new Rect(0f, 0f, Screen.width, Screen.height);
+            sceneFadeImg.rectTransform.localScale = new Vector2(Screen.width, Screen.height);
+
+            firstPersonController = character.GetComponent<FirstPersonController>();
 
             terrainWidth = (int)terrain.terrainData.size.x;
             terrainLength = (int)terrain.terrainData.size.z;
@@ -44,21 +48,8 @@ namespace kevnls
             scoreText.text = giftTotal.ToString();
 
             PlaceGifts();
-            StartStory();
+            StartCoroutine(StartStory());
         }
-
-        //void FadeToClear()
-        //{
-        //    // Lerp the colour of the image between itself and transparent.
-        //    sceneFadeImg.color = Color.Lerp(sceneFadeImg.color, Color.clear, sceneFadeSpeed * Time.deltaTime);
-        //}
-
-
-        //void FadeToBlack()
-        //{
-        //    // Lerp the colour of the image between itself and black.
-        //    sceneFadeImg.color = Color.Lerp(sceneFadeImg.color, Color.black, sceneFadeSpeed * Time.deltaTime);
-        //}
 
         public void FoundGift()
         {
@@ -70,7 +61,7 @@ namespace kevnls
 
             if (giftTotal <= 0)
             {
-                EndStory();
+                StartCoroutine(EndStory());
             }
         }
 
@@ -89,31 +80,56 @@ namespace kevnls
             }
         }
 
-        void StartStory()
+        IEnumerator StartStory()
         {
-            //fade in from black, disable controller
-            Wait(5);
+            //disable controller
+            firstPersonController.InputEnabled = false;
+
             string strMessage = Story.GetNextParagraph();
             character.SendMessage("ShowMessage", strMessage);
+
+            yield return new WaitForSeconds(sceneOpeningWait);
+
+            StartCoroutine(FadeToClear());
+            firstPersonController.InputEnabled = true;
         }
 
-        void EndStory()
+        IEnumerator EndStory()
         {
+            StartCoroutine(FadeToBlack());
+
             string strMessage;
             do
             {
                 //incremental ending
-                strMessage = Story.GetNextParagraph();
-                Wait(messageFadeTime + 2);
+                strMessage = Story.GetNextParagraph();           
                 character.SendMessage("ShowMessage", strMessage);
+
+                yield return new WaitForSeconds(messageFadeTime + messageHoldTime + messageFadeTime + 2);
             }
             while (strMessage != string.Empty);
-            //the real end
+            //the end
         }
 
-        private IEnumerator Wait(float waitTime)
+        IEnumerator FadeToClear()
         {
-            yield return new WaitForSeconds(waitTime);
+            CanvasGroup fadeCanvas = sceneFadeImg.GetComponent<CanvasGroup>();
+            while (fadeCanvas.alpha > 0)
+            {
+                fadeCanvas.alpha -= Time.deltaTime / sceneFadeSpeed;
+                yield return null;
+            }
+        }
+
+
+        IEnumerator FadeToBlack()
+        {
+            CanvasGroup fadeCanvas = sceneFadeImg.GetComponent<CanvasGroup>();
+            while (fadeCanvas.alpha < 1)
+            {
+                fadeCanvas.alpha += Time.deltaTime / sceneFadeSpeed;
+                yield return null;
+            }
         }
     }
 }
