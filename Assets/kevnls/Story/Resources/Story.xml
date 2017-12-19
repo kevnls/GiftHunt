@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <story title="Epic Tale">
   <paragraphs>
-    <paragraph>I have left some Christmas gifts for you to find.</paragraph>
-    <paragraph>You have found all of your Christmas gifts! I wish you a merry Christmas, and to you a good night.</paragraph>
+    <paragraph>I have left some gifts for you to find. &#10;Each one has a special message for you.</paragraph>
+    <paragraph>You have found all of your gifts!</paragraph>
+    <paragraph>I hope you enjoyed your walk in the snow.</paragraph>
+    <paragraph>Thank you for playing.</paragraph>
+    <paragraph>Happy Holidays!</paragraph>
+    <paragraph>©kevnls</paragraph>
   </paragraphs>
   <phrases>
     <phrase>

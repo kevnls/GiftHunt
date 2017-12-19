@@ -17,8 +17,6 @@ namespace kevnls
         public GameObject scoreTextObject;
         public const float messageHoldTime = 7;
         public const float messageFadeTime = 5;
-        
-        //used to keep the gifts away from the boundary mountains
         public int giftPlacementSizeBuffer = 75;
 
         private FirstPersonController firstPersonController;
@@ -69,7 +67,6 @@ namespace kevnls
         {
             for (int x = 0; x < numberOfGroupsOfFiveGifts + 1; x++)
             {
-                //randomize the placement of the gifts
                 for (int i = 0; i < gifts.Length; i++)
                 {
                     int posx = Random.Range(terrainPosX + giftPlacementSizeBuffer, terrainPosX + terrainWidth - giftPlacementSizeBuffer);
@@ -82,7 +79,6 @@ namespace kevnls
 
         IEnumerator StartStory()
         {
-            //disable controller
             firstPersonController.InputEnabled = false;
 
             string strMessage = Story.GetNextParagraph();
@@ -101,14 +97,17 @@ namespace kevnls
             string strMessage;
             do
             {
-                //incremental ending
-                strMessage = Story.GetNextParagraph();           
-                character.SendMessage("ShowMessage", strMessage);
+                yield return new WaitForSeconds(messageFadeTime + messageHoldTime);
+                firstPersonController.InputEnabled = false;
 
-                yield return new WaitForSeconds(messageFadeTime + messageHoldTime + messageFadeTime + 2);
+                //incremental ending
+                strMessage = Story.GetNextParagraph();
+                character.SendMessage("ShowMessage", strMessage);
             }
             while (strMessage != string.Empty);
             //the end
+            //SceneLoader sceneLoader = new SceneLoader();
+            //sceneLoader.SwitchScene("Start");
         }
 
         IEnumerator FadeToClear()
@@ -119,6 +118,9 @@ namespace kevnls
                 fadeCanvas.alpha -= Time.deltaTime / sceneFadeSpeed;
                 yield return null;
             }
+
+            //testing code for story ending
+            FoundGift();
         }
 
 
