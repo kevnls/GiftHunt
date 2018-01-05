@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityStandardAssets.Characters.FirstPerson;
+using UnityEngine.SceneManagement;
 
 namespace kevnls
 {
@@ -106,8 +107,7 @@ namespace kevnls
             }
             while (strMessage != string.Empty);
             //the end
-            //SceneLoader sceneLoader = new SceneLoader();
-            //sceneLoader.SwitchScene("Start");
+            SceneManager.LoadScene("Start");
         }
 
         IEnumerator FadeToClear()
@@ -120,7 +120,7 @@ namespace kevnls
             }
 
             //testing code for story ending
-            FoundGift();
+            //FoundGift();
         }
 
 
